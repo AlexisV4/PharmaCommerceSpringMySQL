@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/compras.css">
+    <title>Compras</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+    <script>
+        // Función para mostrar la ventana emergente al hacer clic en el botón "Crear Nuevo"
+        function crearNuevoCompra() {
+            document.getElementById('crearCompra').style.display = 'block';
+        }
+    </script>
+
+    <script>
+        function buscarUnaCompra(){
+            document.getElementById('buscarCompra').style.display = 'block'
+        }
+    </script>
+
+    <script>
+        function actualizarUnaCompra(){
+            document.getElementById('actualizarCompra').style.display = 'block'
+        }
+    </script>
+
+    <script>
+        function eliminarUnaCompra(){
+            document.getElementById('eliminarCompra').style.display = 'block'
+        }
+    </script>
+    
+<!--Funcion que convierte la fecha de vencimiento y la pone en el formato yy-mm-dd como lo pide MYSQL-->
+    <script>
+        $(function() {
+        $("#fecha_compra").datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+        });
+    </script>
+
+    <script>
+        function cerrarFormulario(idFormulario) {
+            var formulario = document.getElementById(idFormulario);
+            formulario.style.display = "none";
+        }
+    </script>
+
+</head>
+
+<header>
+
+    <nav class="navbar navbar-expand-lg bg-light" style="height: 80px; color: black;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="../index.html" style="font-weight: bold; font-size: 20px; color: rgba(4, 228, 228, 0.795);">
+                <img src="../imagenes/LogoPharmaCommerce.PNG" alt="Logo pagina" style="width: 70px; padding-bottom: 10px"> PharmaCommerce
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" style="margin-top: 30px">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active font-weight-bold" style="text-decoration: underline; " aria-current="page" href="../index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  font-weight-bold" style="text-decoration: underline; color: black" href="#">Nosotros</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle font-weight-bold" style="text-decoration: underline; color: black;" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                            Menú
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item"  href="/index">Inicio 🏠</a></li>
+                            <li><a class="dropdown-item"  href="/productos">Productos 🛒</a></li>
+                            <li><a class="dropdown-item"  href="/compras">Compras 🗳️</a></li>
+                            <li><a class="dropdown-item"  href="/clientes">Clientes 👨‍💼</a></li>
+                            <li><a class="dropdown-item"  href="/empleados">Empleados 🧑🏻‍💼</a></li>
+                            <li><a class="dropdown-item"  href="/proveedores">Proveedores 🔧</a></li>
+                            <li><a class="dropdown-item"  href="/categorias">Categorías 🗂️</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle font-weight-bold" style= "color: black; text-decoration: underline;" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                            Mi perfil 🙎🏻‍♂️
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item"  href="index.html">Configuración ⚙️</a></li>
+                            <li><a class="dropdown-item"  href="index.html">Editar perfil ✏️</a></li>
+                            <li><a class="dropdown-item"  href="index.html">Cerrar sesión ❌</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+</header>
+
+<body>
+
+<main>
+    <h1 class="nombre-pagina">Compras 🗳️</h1>
+    <section class="compras">
+        <p>¡Bienvenido a la sección de Compras! En esta área, encontrarás todas las herramientas que necesitas para administrar tus procesos de compra de manera efectiva. Tanto si deseas consultar el historial de compras, ingresar nuevos registros de adquisición o realizar acciones específicas en tu flujo de trabajo de compras, esta pestaña será tu aliada en la gestión de adquisiciones de tu negocio.</p>
+        <br>
+    </section>
+</main>
+
+<div class="container text-center botones-contenedor">
+    <div class="btn-group-vertical botones" role="group" aria-label="Vertical radio toggle button group" style="width: 60%;">
+        <a href="#" onclick="crearNuevoCompra()" class="btn btn-outline-primary">Crear</a>
+        <a href="#" onclick="buscarUnaCompra()" class="btn btn-outline-primary">Buscar</a>
+        <a href="#" onclick="actualizarUnaCompra()" class="btn btn-outline-primary">Actualizar</a>
+        <a href="#" onclick="eliminarUnaCompra()" class="btn btn-outline-primary">Eliminar</a>
+    </div>
+</div>
+
+<!-- Ventana emergente -->
+<div id="crearCompra" class="crearCompra">
+    <a href="#" class="cerrar-formulario" onclick="cerrarFormulario('crearCompra')">&times;</a>
+    <h2>Crear Nueva Compra</h2>
+    <form action="crear_producto.php" method="post">
+        <div class="form-group">
+            <label for="id_compra">ID Compra:</label>
+            <input type="text" id="id_compra" name="id_compra"> 
+        </div>
+        <div class="form-group">
+            <label for="informacion_producto">InfoProducto:</label>
+            <input type="text" id="informacion_producto" name="informacion_producto"> 
+        </div>
+        <div class="form-group">
+            <label for="cantidad">Cantidad:</label>
+            <input type="text" id="cantidad" name="cantidad"> 
+        </div>
+        <div class="form-group">
+            <label for="precio_unitario">PrecioUnidad:</label>
+            <input type="number" id="precio_unitario" name="precio_unitario"> 
+        </div>
+        <div class="form-group">
+            <label for="total_pagar">Total Pagar:</label>
+            <input type="number" id="total_pagar" name="total_pagar"> 
+        </div>
+        <div class="form-group">
+            <label for="id_proveedor">ID Proveedor:</label>
+            <select class="form-select" aria-label="Default select example" id="id_proveedor" name="id_proveedor">
+                <option selected disabled>Seleccione un proveedor</option>
+                <option value="1" title="Healthy S.A.S">900029140</option>
+                <option value="2" title="Meditech">900255182</option>
+                <option value="3" title="TechnoHealth">3</option>
+            </select> 
+        </div>
+        <div class="form-group">
+            <label for="precio">ID Empleado:</label>
+            <select class="form-select" aria-label="Default select example" id="id_empleado" name="id_empleado">
+                <option selected disabled>Seleccione un empleado</option>
+                <option value="1" title="Healthy S.A.S">900029140</option>
+                <option value="2" title="Meditech">900255182</option>
+                <option value="3" title="TechnoHealth">3</option>
+            </select> 
+        </div>
+        <div class="form-group">
+            <label for="precio">FechaCompra:</label>
+            <input type="text" id="fecha_compra" name="fecha_compra">
+        </div>    
+        <div class="form-group">
+            <label for="precio">Metodo Pago:</label>
+            <select class="form-select" aria-label="Default select example" id="metodo_pago" name="metodo_pago">
+                <option selected disabled>Seleccione un empleado</option>
+                <option value="1" title="Healthy S.A.S">Efectivo</option>
+                <option value="2" title="Meditech">Tarjeta crédito/débito</option>
+                <option value="3" title="TechnoHealth">Transferencia</option>
+            </select> 
+        </div>          
+        <div style="text-align: center;">
+            <button type="button" class="btn btn-primary" style="margin: auto; width: 150px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);">Crear</button>
+        </div>
+    </form>
+</div>
+
+<div id="buscarCompra" class="buscarCompra">
+    <a href="#" class="cerrar-formulario" onclick="cerrarFormulario('buscarCompra')">&times;</a>
+    <h2>Buscar Compra</h2>
+    <form action="crear_producto.php" method="post">
+        <div class="form-group">
+            <label for="nombre">Buscar:</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Termino de búsqueda"> 
+        </div>
+        <div style="text-align: center;">
+            <button type="button" class="btn btn-primary" style="margin: auto; width: 150px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);">Buscar</button>
+        </div>
+    </form>
+</div>
+
+<div id="actualizarCompra" class="actualizarCompra">
+    <a href="#" class="cerrar-formulario" onclick="cerrarFormulario('actualizarCompra')">&times;</a>
+    <h2>Actualizar Compra</h2>
+    <form action="crear_producto.php" method="post">
+        <div class="form-group">
+            <label for="id_compra">ID Compra:</label>
+            <input type="text" id="id_compra" name="id_compra" placeholder="ID Compra a actualizar"> 
+        </div>
+        <div class="form-group">
+            <label for="precio">Campo:</label>
+            <select class="form-select" aria-label="Default select example" type="text">
+                <option selected>Campo a actualizar</option>
+                <option value="1">id_compra</option>
+                <option value="2">informacion_producto</option>
+                <option value="3">cantidad</option>
+                <option value="4">precio_unitario</option>
+                <option value="5">total_pagar</option>
+                <option value="6">id_proveedor</option>
+                <option value="7">id_empleado</option>
+                <option value="8">fecha_compra</option>
+                <option value="9">metodo_pago</option>
+            </select> 
+        </div>
+        <div class="form-group">
+            <label for="nombre">Nuevo Valor:</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ingrese el valor nuevo"> 
+        </div>
+        <div style="text-align: center;">
+            <button type="button" class="btn btn-primary" style="margin: auto; width: 150px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);">Actualizar</button>
+        </div>
+    </form>
+</div>
+
+<div id="eliminarCompra" class="eliminarCompra">
+    <a href="#" class="cerrar-formulario" onclick="cerrarFormulario('eliminarCompra')">&times;</a>
+    <h2>Eliminar Compra</h2>
+    <form action="crear_producto.php" method="post">
+        <div class="form-group">
+            <label for="id_compra">ID:</label>
+            <select class="form-select" aria-label="Default select example" type="text" id="id_compra" name="id_compra">
+                <option selected>ID Compra a eliminar</option>
+                <option value="1" title="Loratadina x10 Capsulas">909189243129</option>
+            </select> 
+        </div>
+        <div style="text-align: center;">
+            <button type="button" class="btn btn-primary" style="margin: auto; width: 150px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);">Eliminar</button>
+        </div>
+    </form>
+</div>
+
+</body>
+
+<footer class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <p>&copy; 2024 PharmaCommerce. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/empleados.css">
+    <title>Empleados</title>
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+    <script>
+        // Función para mostrar la ventana emergente al hacer clic en el botón "Crear Nuevo"
+        function crearNuevoEmpleado() {
+            document.getElementById('crearEmpleado').style.display = 'block';
+        }
+    </script>
+
+    <script>
+        function buscarUnEmpleado(){
+            document.getElementById('buscarEmpleado').style.display = 'block'
+        }
+    </script>
+
+    <script>
+        function actualizarUnEmpleado(){
+            document.getElementById('actualizarEmpleado').style.display = 'block'
+        }
+    </script>
+
+    <script>
+        function eliminarUnEmpleado(){
+            document.getElementById('eliminarEmpleado').style.display = 'block'
+        }
+    </script>
+
+    <script>
+        function cerrarFormulario(idFormulario) {
+            var formulario = document.getElementById(idFormulario);
+            formulario.style.display = "none";
+        }
+    </script>
+
+    <!--Funcion que convierte la fecha de vencimiento y la pone en el formato yy-mm-dd como lo pide MYSQL-->
+    <script>
+        $(function() {
+        $("#fecha_ingreso").datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+        });
+    </script>
+
+<script>
+    $(function() {
+    $("#fecha_retiro").datepicker({
+        dateFormat: 'yy-mm-dd'
+    });
+    });
+</script>
+
+    
+</head>
+
+
+
+<header>
+
+    <nav class="navbar navbar-expand-lg bg-light" style="height: 80px; color: black;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/index" style="font-weight: bold; font-size: 20px; color: rgba(4, 228, 228, 0.795);">
+                <img src="../imagenes/LogoPharmaCommerce.PNG" alt="Logo pagina" style="width: 70px; padding-bottom: 10px"> PharmaCommerce
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" style="margin-top: 30px">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active font-weight-bold" style="text-decoration: underline; " aria-current="page" href="../index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  font-weight-bold" style="text-decoration: underline; color: black" href="#">Nosotros</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle font-weight-bold" style="text-decoration: underline; color: black;" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                            Menú
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item"  href="/index">Inicio 🏠</a></li>
+                            <li><a class="dropdown-item"  href="/productos">Productos 🛒</a></li>
+                            <li><a class="dropdown-item"  href="/compras">Compras 🗳️</a></li>
+                            <li><a class="dropdown-item"  href="/clientes">Clientes 👨‍💼</a></li>
+                            <li><a class="dropdown-item"  href="/empleados">Empleados 🧑🏻‍💼</a></li>
+                            <li><a class="dropdown-item"  href="/proveedores">Proveedores 🔧</a></li>
+                            <li><a class="dropdown-item"  href="/categorias">Categorías 🗂️</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle font-weight-bold" style= "color: black; text-decoration: underline;" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                            Mi perfil 🙎🏻‍♂️
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item"  href="index.html">Configuración ⚙️</a></li>
+                            <li><a class="dropdown-item"  href="index.html">Editar perfil ✏️</a></li>
+                            <li><a class="dropdown-item"  href="index.html">Cerrar sesión ❌</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+</header>
+
+<body>
+
+    <main>
+        <h1 class="nombre-pagina">Empleados 🧑🏻‍💼</h1>
+        <section class="empleados">
+            <p>¡Bienvenido a la sección de Empleados! Aquí, tendrás acceso a todas las herramientas necesarias para gestionar a tus empleados de manera eficiente. Ya sea que desees revisar el historial laboral, ingresar nuevos registros de empleados o realizar acciones específicas en tu flujo de trabajo de gestión de personal, esta pestaña será tu aliada en el manejo del equipo de trabajo de tu negocio.</p>
+            <br>
+        </section>
+    </main>
+        
+    <div class="container text-center botones-contenedor">
+        <div class="btn-group-vertical botones" role="group" aria-label="Vertical radio toggle button group" style="width: 60%;">
+            <a href="#" onclick="crearNuevoEmpleado()" class="btn btn-outline-primary">Crear</a>
+            <a href="#" onclick="buscarUnEmpleado()" class="btn btn-outline-primary">Buscar</a>
+            <a href="#" onclick="actualizarUnEmpleado()" class="btn btn-outline-primary">Actualizar</a>
+            <a href="#" onclick="eliminarUnEmpleado()" class="btn btn-outline-primary">Eliminar</a>
+        </div>
+    </div>
+
+    <!-- Ventana emergente -->
+<div id="crearEmpleado" class="crearEmpleado">
+    <a href="#" class="cerrar-formulario" onclick="cerrarFormulario('crearEmpleado')">&times;</a>
+    <h2>Crear Nuevo Empleado</h2>
+    <form action="crear_producto.php" method="post">
+        <div class="form-group">
+            <label for="id_empleado">ID Empleado:</label>
+            <input type="text" id="id_empleado" name="id_empleado"> 
+        </div>
+        <div class="form-group">
+            <label for="nombre_completo">Nombre:</label>
+            <input type="text" id="nombre_completo" name="nombre_completo"> 
+        </div>
+        <div class="form-group">
+            <label for="nombre_usuario">Usuario:</label>
+            <input type="text" id="nombre_usuario" name="nombre_usuario"> 
+        </div>
+        <div class="form-group">
+            <label for="rol">Rol:</label>
+            <select class="form-select" aria-label="Default select example" type="text" id="rol" name="rol">
+                <option selected>Indique su rol</option>
+                <option value="1">Regente</option>
+                <option value="2">Practicante</option>
+                <option value="3">Administrador</option>
+                <option value="4">Gerente</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="correo">Correo:</label>
+            <input type="text" id="correo" name="correo"> 
+        </div>
+        <div class="form-group">
+            <label for="fecha_ingreso">FechaIngreso:</label>
+            <input type="text" id="fecha_ingreso" name="fecha_ingreso">
+        </div>  
+        <div class="form-group">
+            <label for="estado_de_empleado">Estado:</label>
+            <select class="form-select" aria-label="Default select example" type="text" id="estado_de_empleado" name="estado_de_empleado">
+                <option selected>Indique su estado</option>
+                <option value="1">Empleado temporal</option>
+                <option value="2">Empleado fijo</option>
+                <option value="3">Contratista</option>
+                <option value="4">Jubilado</option>
+                <option value="4">Licencia</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="fecha_retiro">FechaRetiro:</label>
+            <input type="text" id="fecha_retiro" name="fecha_retiro">
+        </div>  
+        <div style="text-align: center;">
+            <button type="button" class="btn btn-primary" style="margin: auto; width: 150px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);">Crear</button>
+        </div>
+    </form>
+</div>
+
+<div id="buscarEmpleado" class="buscarEmpleado">
+    <a href="#" class="cerrar-formulario" onclick="cerrarFormulario('buscarEmpleado')">&times;</a>
+    <h2>Buscar Empleado</h2>
+    <form action="crear_producto.php" method="post">
+        <div class="form-group">
+            <label for="nombre">Buscar:</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Termino de búsqueda"> 
+        </div>
+        <div style="text-align: center;">
+            <button type="button" class="btn btn-primary" style="margin: auto; width: 150px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);">Buscar</button>
+        </div>
+    </form>
+</div>
+
+<div id="actualizarEmpleado" class="actualizarEmpleado">
+    <a href="#" class="cerrar-formulario" onclick="cerrarFormulario('actualizarEmpleado')">&times;</a>
+    <h2>Actualizar Empleado</h2>
+    <form action="crear_producto.php" method="post">
+        <div class="form-group">
+            <label for="id_empleado">ID Empleado:</label>
+            <input type="text" id="id_cliente" name="id_empleado" placeholder="ID empleado a actualizar"> 
+        </div>
+        <div class="form-group">
+            <label for="precio">Campo:</label>
+            <select class="form-select" aria-label="Default select example" type="text">
+                <option selected>Campo a actualizar</option>
+                <option value="1">id_empleado</option>
+                <option value="2">nombre_completo</option>
+                <option value="3">nombre_usuario</option>
+                <option value="4">rol</option>
+                <option value="5">telefono</option>
+                <option value="6">correo</option>
+                <option value="6">fecha_ingreso</option>
+                <option value="6">estado_de_empleado</option>
+                <option value="6">fecha_retiro</option>
+            </select> 
+        </div>
+        <div class="form-group">
+            <label for="nombre">Nuevo Valor:</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ingrese el valor nuevo"> 
+        </div>
+        <div style="text-align: center;">
+            <button type="button" class="btn btn-primary" style="margin: auto; width: 150px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);">Actualizar</button>
+        </div>
+    </form>
+</div>
+
+<div id="eliminarEmpleado" class="eliminarEmpleado">
+    <a href="#" class="cerrar-formulario" onclick="cerrarFormulario('eliminarEmpleado')">&times;</a>
+    <h2>Eliminar Empleado</h2>
+    <form action="crear_producto.php" method="post">
+        <div class="form-group">
+            <label for="id_empleado">ID:</label>
+            <select class="form-select" aria-label="Default select example" type="text" id="id_empleado" name="id_empleado">
+                <option selected>ID Empleado a eliminar</option>
+                <option value="1" title="Loratadina x10 Capsulas">909189243129</option>
+            </select> 
+        </div>
+        <div style="text-align: center;">
+            <button type="button" class="btn btn-primary" style="margin: auto; width: 150px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);">Eliminar</button>
+        </div>
+    </form>
+</div>
+
+    
+</body>
+        
+<footer class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <p>&copy; 2024 PharmaCommerce. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+</html>
