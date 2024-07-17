@@ -19,6 +19,30 @@
         function crearNuevoCompra() {
             document.getElementById('crearCompra').style.display = 'block';
         }
+        
+        $(function() {
+            // Selecciona el formulario de creación y establece un manejador para el evento submit
+            $("#crearCompra form").submit(function(event) {
+                event.preventDefault(); // Evitar el envío del formulario por defecto
+
+                var form = $(this); // Obtener el formulario actual
+                var url = form.attr('action'); // Obtener la URL a la que se enviará la solicitud AJAX
+                var formData = form.serialize(); // Serializar los datos del formulario en formato de cadena
+
+                // Enviar una solicitud AJAX al servidor
+                $.ajax({
+                    type: 'POST', // Método de solicitud HTTP
+                    url: url, // URL del servidor donde se enviarán los datos del formulario
+                    data: formData, // Datos del formulario serializados
+                    success: function(response) {
+                        alert(response); // Mostrar un mensaje emergente con la respuesta del servidor
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText); // Mostrar errores en la consola del navegador
+                    }
+                });
+            });
+        });
     </script>
 
     <script>
@@ -31,6 +55,29 @@
         function actualizarUnaCompra(){
             document.getElementById('actualizarCompra').style.display = 'block'
         }
+        
+                // Función AJAX que muestra un POP UP cuando se actualiza producto
+        $(function() {
+            $("#actualizarCompra form").submit(function(event) {
+                event.preventDefault(); // Evitar el envío del formulario por defecto
+
+                var form = $(this);
+                var url = form.attr('action');
+                var formData = form.serialize();
+
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: formData,
+                    success: function(response) {
+                        alert(response); // Mostrar un mensaje emergente con la respuesta del servidor
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText); // Mostrar errores en la consola del navegador
+                    }
+                });
+            });
+        });
     </script>
 
     <script>
@@ -129,11 +176,7 @@
 <div id="crearCompra" class="crearCompra">
     <a href="#" class="cerrar-formulario" onclick="cerrarFormulario('crearCompra')">&times;</a>
     <h2>Crear Nueva Compra</h2>
-    <form action="crear_producto.php" method="post">
-        <div class="form-group">
-            <label for="id_compra">ID Compra:</label>
-            <input type="text" id="id_compra" name="id_compra"> 
-        </div>
+    <form action="/crearCompras" method="post">
         <div class="form-group">
             <label for="informacion_producto">InfoProducto:</label>
             <input type="text" id="informacion_producto" name="informacion_producto"> 
@@ -143,46 +186,41 @@
             <input type="text" id="cantidad" name="cantidad"> 
         </div>
         <div class="form-group">
-            <label for="precio_unitario">PrecioUnidad:</label>
-            <input type="number" id="precio_unitario" name="precio_unitario"> 
-        </div>
-        <div class="form-group">
             <label for="total_pagar">Total Pagar:</label>
             <input type="number" id="total_pagar" name="total_pagar"> 
         </div>
         <div class="form-group">
-            <label for="id_proveedor">ID Proveedor:</label>
-            <select class="form-select" aria-label="Default select example" id="id_proveedor" name="id_proveedor">
-                <option selected disabled>Seleccione un proveedor</option>
-                <option value="1" title="Healthy S.A.S">900029140</option>
-                <option value="2" title="Meditech">900255182</option>
-                <option value="3" title="TechnoHealth">3</option>
-            </select> 
-        </div>
-        <div class="form-group">
-            <label for="precio">ID Empleado:</label>
-            <select class="form-select" aria-label="Default select example" id="id_empleado" name="id_empleado">
-                <option selected disabled>Seleccione un empleado</option>
-                <option value="1" title="Healthy S.A.S">900029140</option>
-                <option value="2" title="Meditech">900255182</option>
-                <option value="3" title="TechnoHealth">3</option>
-            </select> 
-        </div>
-        <div class="form-group">
             <label for="precio">FechaCompra:</label>
             <input type="text" id="fecha_compra" name="fecha_compra">
-        </div>    
+        </div>  
         <div class="form-group">
-            <label for="precio">Metodo Pago:</label>
-            <select class="form-select" aria-label="Default select example" id="metodo_pago" name="metodo_pago">
+            <label for="precio">Empleado:</label>
+            <select class="form-select" aria-label="Default select example" id="id_empleado" name="id_empleado">
                 <option selected disabled>Seleccione un empleado</option>
-                <option value="1" title="Healthy S.A.S">Efectivo</option>
-                <option value="2" title="Meditech">Tarjeta crédito/débito</option>
-                <option value="3" title="TechnoHealth">Transferencia</option>
+                <option value="1111111111" >Empleado genérico</option>
             </select> 
-        </div>          
+        </div>
+        <div class="form-group">
+            <label for="id_metodo_pago">Metodo Pago:</label>
+            <select class="form-select" aria-label="Default select example" id="id_metodo_pago" name="id_metodo_pago">
+                <option selected disabled>Seleccione un empleado</option>
+                <option value="1" >Tarjeta crédito</option>
+                <option value="2" >Tarjeta débito</option>
+                <option value="3" >Transferencia bancaria</option>
+                <option value="4" >Pago en efectivo</option>
+                <option value="5" >Pago por cheque</option>
+            </select> 
+        </div>  
+        <div class="form-group">
+            <label for="id_proveedor">Proveedor:</label>
+            <select class="form-select" aria-label="Default select example" id="id_proveedor" name="id_proveedor">
+                <option selected disabled>Seleccione un proveedor</option>
+                <option value="1" title="Healthy S.A.S">Healthy S.A.S</option>
+                <option value="2" title="Meditech">Meditech</option>
+            </select> 
+        </div>
         <div style="text-align: center;">
-            <button type="button" class="btn btn-primary" style="margin: auto; width: 150px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);">Crear</button>
+            <button type="submit" class="btn btn-primary" style="margin: auto; width: 150px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);">Crear</button>
         </div>
     </form>
 </div>
@@ -190,13 +228,13 @@
 <div id="buscarCompra" class="buscarCompra">
     <a href="#" class="cerrar-formulario" onclick="cerrarFormulario('buscarCompra')">&times;</a>
     <h2>Buscar Compra</h2>
-    <form action="crear_producto.php" method="post">
+    <form action="/buscar-compra" method="post">
         <div class="form-group">
-            <label for="nombre">Buscar:</label>
-            <input type="text" id="nombre" name="nombre" placeholder="Termino de búsqueda"> 
+            <label for="termino_busqueda">Buscar:</label>
+            <input type="text" id="termino_busqueda" name="termino_busqueda" placeholder="Término de búsqueda"> 
         </div>
         <div style="text-align: center;">
-            <button type="button" class="btn btn-primary" style="margin: auto; width: 150px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);">Buscar</button>
+            <button type="submit" class="btn btn-primary" style="margin: auto; width: 150px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);">Buscar</button>
         </div>
     </form>
 </div>
@@ -204,32 +242,30 @@
 <div id="actualizarCompra" class="actualizarCompra">
     <a href="#" class="cerrar-formulario" onclick="cerrarFormulario('actualizarCompra')">&times;</a>
     <h2>Actualizar Compra</h2>
-    <form action="crear_producto.php" method="post">
+    <form action="/actualizar-compra" method="post">
         <div class="form-group">
             <label for="id_compra">ID Compra:</label>
             <input type="text" id="id_compra" name="id_compra" placeholder="ID Compra a actualizar"> 
         </div>
         <div class="form-group">
-            <label for="precio">Campo:</label>
-            <select class="form-select" aria-label="Default select example" type="text">
+            <label for="campo">Campo:</label>
+            <select class="form-select" id="campo" name="campo" aria-label="Default select example">
                 <option selected>Campo a actualizar</option>
-                <option value="1">id_compra</option>
-                <option value="2">informacion_producto</option>
-                <option value="3">cantidad</option>
-                <option value="4">precio_unitario</option>
-                <option value="5">total_pagar</option>
-                <option value="6">id_proveedor</option>
-                <option value="7">id_empleado</option>
-                <option value="8">fecha_compra</option>
-                <option value="9">metodo_pago</option>
+                <option value="id_compra">id_compra</option>
+                <option value="cantidad">cantidad</option>
+                <option value="total_pagar">total_pagar</option>
+                <option value="id_empleado">id_empleado</option>
+                <option value="fecha_compra">fecha_compra</option>
+                <option value="id_metodo_pago">metodo_pago</option>
+                <option value="id_proveedor">id_proveedor</option>
             </select> 
         </div>
         <div class="form-group">
             <label for="nombre">Nuevo Valor:</label>
-            <input type="text" id="nombre" name="nombre" placeholder="Ingrese el valor nuevo"> 
+            <input type="text" id="nuevoValor" name="nuevoValor" placeholder="Ingrese el valor nuevo">
         </div>
         <div style="text-align: center;">
-            <button type="button" class="btn btn-primary" style="margin: auto; width: 150px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);">Actualizar</button>
+            <button type="submit" class="btn btn-primary" style="margin: auto; width: 150px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);">Actualizar</button>
         </div>
     </form>
 </div>
@@ -237,19 +273,65 @@
 <div id="eliminarCompra" class="eliminarCompra">
     <a href="#" class="cerrar-formulario" onclick="cerrarFormulario('eliminarCompra')">&times;</a>
     <h2>Eliminar Compra</h2>
-    <form action="crear_producto.php" method="post">
+    <form id="eliminarCompraForm" onsubmit="enviarFormularioCompra(event)">
         <div class="form-group">
-            <label for="id_compra">ID:</label>
-            <select class="form-select" aria-label="Default select example" type="text" id="id_compra" name="id_compra">
-                <option selected>ID Compra a eliminar</option>
-                <option value="1" title="Loratadina x10 Capsulas">909189243129</option>
-            </select> 
+            <label for="compra_id">Compra a eliminar:</label>
+            <select class="form-select" aria-label="Default select example" id="compra_id" name="compra_id" style="width: 250px">
+                <option selected disabled>ID Compra a eliminar</option>
+            </select>
         </div>
         <div style="text-align: center;">
-            <button type="button" class="btn btn-primary" style="margin: auto; width: 150px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);">Eliminar</button>
+            <button type="submit" class="btn btn-primary" style="margin: auto; width: 150px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);">Eliminar</button>
         </div>
     </form>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/api/compras')
+            .then(response => response.json())
+            .then(data => {
+                const select = document.getElementById('compra_id');
+                data.forEach(compra => {
+                    const option = document.createElement('option');
+                    option.value = compra.id_compra;
+                    option.textContent = `${compra.id_compra} - ${compra.informacionProducto}`;
+                    select.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error al cargar las compras:', error));
+    });
+
+    function enviarFormularioCompra(event) {
+        event.preventDefault();  // Evita que el formulario se envíe de forma tradicional
+        const form = document.getElementById('eliminarCompraForm');
+        const compraId = document.getElementById('compra_id').value;
+
+        if (compraId && compraId !== 'ID Compra a eliminar') {
+            fetch(`/eliminar-compra/${compraId}`, {
+                method: 'DELETE',
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Compra eliminada exitosamente');
+                    form.reset();
+                } else {
+                    alert('Error al eliminar la compra');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al eliminar la compra');
+            });
+        } else {
+            alert('Por favor, selecciona una compra');
+        }
+    }
+</script>
+
+
+
+
 
 </body>
 

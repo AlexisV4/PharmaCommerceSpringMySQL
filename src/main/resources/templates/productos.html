@@ -9,17 +9,43 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <script src="/js/bootstrap.bundle.min.js"></script>
 
-    <!--Estas bibliotecas te permiten mostrar un calendario interactivo para seleccionar la fecha y 
-        luego puedes formatear la fecha ingresada antes de enviarla al servidor.-->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
 
     <script>
         // Función para mostrar la ventana emergente al hacer clic en el botón "Crear Nuevo"
         function crearNuevoProducto() {
             document.getElementById('crearProducto').style.display = 'block';
         }
+
+        // Función que se ejecuta cuando se intenta enviar el formulario al controlador, pero que en su lugar
+        //Obtiene los valores del formulario y los envía usando AJAX, para cuando retorne la respuesta el 
+        //Servidor, me muestre un PopUp con el mensaje de Success o Error sino se inserta el producto.
+        $(function() {
+            // Selecciona el formulario de creación y establece un manejador para el evento submit
+            $("#crearProducto form").submit(function(event) {
+                event.preventDefault(); // Evitar el envío del formulario por defecto
+
+                var form = $(this); // Obtener el formulario actual
+                var url = form.attr('action'); // Obtener la URL a la que se enviará la solicitud AJAX
+                var formData = form.serialize(); // Serializar los datos del formulario en formato de cadena
+
+                // Enviar una solicitud AJAX al servidor
+                $.ajax({
+                    type: 'POST', // Método de solicitud HTTP
+                    url: url, // URL del servidor donde se enviarán los datos del formulario
+                    data: formData, // Datos del formulario serializados
+                    success: function(response) {
+                        alert(response); // Mostrar un mensaje emergente con la respuesta del servidor
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText); // Mostrar errores en la consola del navegador
+                    }
+                });
+            });
+        });
     </script>
 
     <script>
@@ -32,6 +58,29 @@
         function actualizarUnProducto(){
             document.getElementById('actualizarProducto').style.display = 'block'
         }
+        
+        // Función AJAX que muestra un POP UP cuando se actualiza producto
+        $(function() {
+            $("#actualizarProducto form").submit(function(event) {
+                event.preventDefault(); // Evitar el envío del formulario por defecto
+
+                var form = $(this);
+                var url = form.attr('action');
+                var formData = form.serialize();
+
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: formData,
+                    success: function(response) {
+                        alert(response); // Mostrar un mensaje emergente con la respuesta del servidor
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText); // Mostrar errores en la consola del navegador
+                    }
+                });
+            });
+        });
     </script>
 
     <script>
@@ -39,6 +88,9 @@
             document.getElementById('eliminarProducto').style.display = 'block'
         }
     </script>
+    
+
+    
     
 <!--Funcion que convierte la fecha de vencimiento y la pone en el formato yy-mm-dd como lo pide MYSQL-->
     <script>
@@ -72,7 +124,7 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active font-weight-bold" style="text-decoration: underline; " aria-current="page" href="../index.html">Inicio</a>
+                    <a class="nav-link active font-weight-bold" style="text-decoration: underline; " aria-current="page" href="/index.html">Inicio</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link  font-weight-bold" style="text-decoration: underline; color: black" href="#">Nosotros</a>
@@ -134,10 +186,6 @@
     <h2>Crear Nuevo Producto</h2>
     <form action="/productos" method="post">
         <div class="form-group">
-            <label for="id_producto">ID Producto:</label>
-            <input type="text" id="id_producto" name="id_producto"> 
-        </div>
-        <div class="form-group">
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre"> 
         </div>
@@ -153,9 +201,8 @@
             <label for="id_proveedor">ID Proveedor:</label>
             <select class="form-select" aria-label="Default select example" id="id_proveedor" name="id_proveedor">
                 <option selected disabled>Seleccione un proveedor</option>
-                <option value="900029140" title="Healthy S.A.S">900029140</option>
-                <option value="900255182" title="Meditech">900255182</option>
-                <option value="3" title="TechnoHealth">3</option>
+                <option value="1" title="Healthy S.A.S">Healthy S.A.S</option>
+                <option value="2" title="Meditech">Meditech</option>
             </select> 
         </div>
         <div class="form-group">
@@ -170,7 +217,21 @@
             <label for="id_categoria">ID Categoría:</label>
             <select class="form-select" aria-label="Default select example" id="id_categoria" name="id_categoria">
                 <option selected disabled>Seleccione la categoría</option>
-                <option value="101" title="Tratamiento de la gripe">101</option>
+                <option value="1" title="Tratamiento de la gripe">Tratamiento de la gripe</option>
+                <option value="2" title="Antieméticos">Antieméticos</option>
+                <option value="3" title="Analgésicos y Antiinflamatorios">Analgésicos y Antiinflamatorios</option>
+                <option value="4" title="Antibióticos">Antibióticos</option>
+                <option value="5" title="Antialérgicos y Antihistamínicos">Antialérgicos y Antihistamínicos</option>
+                <option value="6" title="Antipiréticos">Antipiréticos</option>
+                <option value="7" title="Antidepresivos y Ansiolíticos">Antidepresivos y Ansiolíticos</option>
+                <option value="8" title="Antifúngicos">Antifúngicos</option>
+                <option value="9" title="Antivirales">Antivirales</option>
+                <option value="10" title="Cardiovasculares">Cardiovasculares</option>
+                <option value="11" title="Gastrointestinales">Gastrointestinales</option>
+                <option value="12" title="Vitaminas y Suplementos">Vitaminas y Suplementos</option>
+                <option value="13" title="Antidiabéticos">Antidiabéticos</option>
+                <option value="14" title="Oftalmológicos">Oftalmológicos</option>
+                <option value="15" title="Dermatológicos">Dermatológicos</option>
             </select> 
         </div>             
         <div style="text-align: center;">
@@ -199,30 +260,31 @@
     <a href="#" class="cerrar-formulario" onclick="cerrarFormulario('actualizarProducto')">&times;</a>
     <h2>Actualizar Producto</h2>
     <form action="/actualizar-producto" method="post">
+        <input type="hidden" name="_method" value="PUT">
         <div class="form-group">
-            <label for="nombre">ID Producto:</label>
-            <input type="text" id="nombre" name="nombre" placeholder="ID Producto a actualizar"> 
+            <label for="idProducto">ID Producto:</label>
+            <input type="text" id="idProducto" name="idProducto" placeholder="ID Producto a actualizar"> 
         </div>
         <div class="form-group">
-            <label for="precio">Campo:</label>
-            <select class="form-select" aria-label="Default select example" type="text">
+            <label for="campo">Campo:</label>
+            <select class="form-select" id="campo" name="campo" aria-label="Default select example">
                 <option selected>Campo a actualizar</option>
-                <option value="1">id_producto</option>
-                <option value="2">nombre</option>
-                <option value="3">descripcion</option>
-                <option value="4">precio_venta</option>
-                <option value="5">id_proveedor</option>
-                <option value="6">stock</option>
-                <option value="7">fecha_vencimiento</option>
-                <option value="8">id_categoria</option>
+                <option value="id_producto">id_producto</option>
+                <option value="nombre">nombre</option>
+                <option value="descripcion">descripcion</option>
+                <option value="precio_venta">precio_venta</option>
+                <option value="stock">stock</option>
+                <option value="fecha_vencimiento">fecha_vencimiento</option>
+                <option value="id_categoria">id_categoria</option>
+                <option value="id_proveedor">id_proveedor</option>
             </select> 
         </div>
         <div class="form-group">
-            <label for="nombre">Nuevo Valor:</label>
-            <input type="text" id="nombre" name="nombre" placeholder="Ingrese el valor nuevo"> 
+            <label for="nuevoValor">Nuevo Valor:</label>
+            <input type="text" id="nuevoValor" name="nuevoValor" placeholder="Ingrese el valor nuevo"> 
         </div>
         <div style="text-align: center;">
-            <button type="button" class="btn btn-primary" style="margin: auto; width: 150px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);">Actualizar</button>
+            <button type="submit" class="btn btn-primary" style="margin: auto; width: 150px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);">Actualizar</button>
         </div>
     </form>
 </div>
@@ -230,19 +292,77 @@
 <div id="eliminarProducto" class="eliminarProducto">
     <a href="#" class="cerrar-formulario" onclick="cerrarFormulario('eliminarProducto')">&times;</a>
     <h2>Eliminar Producto</h2>
-    <form action="" method="post">
+    <form id="eliminarProductoForm" onsubmit="enviarFormulario(event)">
         <div class="form-group">
-            <label for="precio">ID:</label>
-            <select class="form-select" aria-label="Default select example" type="text" id="Proveedor_id_proveedor" name="Proveedor_id_proveedor">
-                <option selected>ID Producto a eliminar</option>
-                <option value="1" title="Loratadina x10 Capsulas">909189243129</option>
-            </select> 
+            <label for="producto_id">Producto eliminar:</label>
+            <select class="form-select" aria-label="Default select example" id="producto_id" name="producto_id" style="width: 250px">
+                <option selected disabled>ID Producto a eliminar</option>
+            </select>
         </div>
         <div style="text-align: center;">
-            <button type="button" class="btn btn-primary" style="margin: auto; width: 150px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);">Eliminar</button>
+            <button type="submit" class="btn btn-primary" style="margin: auto; width: 150px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);">Eliminar</button>
         </div>
     </form>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('/api/productos')
+            .then(response => response.json())
+            .then(data => {
+                const select = document.getElementById('producto_id');
+                data.forEach(producto => {
+                    const option = document.createElement('option');
+                    option.value = producto.id_producto;
+                    option.textContent = `${producto.nombre} - ${producto.descripcion}`;
+                    select.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error al cargar los productos:', error));
+    });
+
+    function enviarFormulario(event) {
+        event.preventDefault();
+        const form = document.getElementById('eliminarProductoForm');
+        const productoId = document.getElementById('producto_id').value;
+
+        if (productoId && productoId !== 'ID Producto a eliminar') {
+            fetch(`/eliminar-producto/${productoId}`, {
+                method: 'DELETE',
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Producto eliminado exitosamente');
+                    form.reset();
+                } else {
+                    alert('Error al eliminar el producto');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al eliminar el producto');
+            });
+        } else {
+            alert('Por favor, selecciona un producto');
+        }
+    }
+</script>
+
+<script>
+function enviarFormulario(event) {
+    event.preventDefault();  // Evita que el formulario se envíe de forma tradicional
+    var id = document.getElementById("producto_id").value;
+    fetch("/eliminar-producto/" + id, {
+        method: "DELETE"
+    }).then(response => {
+        if (response.ok) {
+            alert("Producto eliminado exitosamente");
+        } else {
+            alert("Error al eliminar el producto");
+        }
+    });
+}
+</script>
 
 
 </body>

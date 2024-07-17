@@ -1,0 +1,55 @@
+/* Estilos para la tabla */
+.table-container {
+    margin-top: 50px; /* Reducido para centrar más */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table-title {
+    padding: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    border-bottom: 1px solid #ccc;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+}
+
+.table th,
+.table td {
+    padding: 15px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table tbody tr:hover {
+    background-color: #e2e6ea;
+}
+
+.no-results {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    color: #666;
+    font-style: italic;
+}
+
+/* Estilos para el botón */
+.btn-container {
+    margin-top: 20px; /* Agregado para separar el botón del contenido */
+    text-align: center; /* Centra el botón */
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <title>Resultados de la búsqueda</title>
+</head>
+<body class="d-flex justify-content-center align-items-center"> <!-- Estilos para centrar -->
+    <div class="container">
+        <h1 class="text-center mb-4">Resultados de la búsqueda</h1> <!-- Centra el título -->
+        
+        <div th:if="${not #lists.isEmpty(clientes)}" class="text-center">
+            <table class="table table-info mx-auto"> 
+                <thead>
+                    <tr>
+                        <th>ID Cliente</th>
+                        <th>Nombre</th>
+                        <th>Teléfono</th>
+                        <th>Correo</th>
+                        <th>Dirección</th>
+                        <th>ID Ciudad</th>
+                        <th>ID Género</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="cliente : ${clientes}">
+                        <td th:text="${cliente.id_cliente}">ID Cliente</td>
+                        <td th:text="${cliente.nombreCompleto}">Nombre</td>
+                        <td th:text="${cliente.telefono}">Teléfono</td>
+                        <td th:text="${cliente.correo}">Correo</td>
+                        <td th:text="${cliente.direccion}">Dirección</td>
+                        <td th:text="${cliente.id_ciudad}">ID Ciudad</td>
+                        <td th:text="${cliente.id_genero}">ID Género</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${#lists.isEmpty(clienets)}" class="no-results text-center mt-4"> <!-- Centra el mensaje -->
+            <p>No se encontraron resultados para la búsqueda.</p>
+        </div>
+        
+        <div class="text-center mt-4"> <!-- Centra el botón -->
+            <a th:href="@{/clientes}" class="btn btn-primary">Volver a Compras</a>
+        </div>
+    </div>
+</body>
+</html>

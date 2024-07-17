@@ -1,7 +1,10 @@
 
 package com.example.pharmacommerce.modelo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -10,19 +13,22 @@ import jakarta.persistence.Table;
 @Table(name = "productos") // Indicamos a JPA que la clase Producto está mapeada a la tabla llamada "productos" en la base de datos.
 public class Producto {
     @Id
-    private String id_producto;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_producto")
+    private int id_producto;
+    
     private String nombre;
     private String descripcion;
     private int precio_venta;
-    private String id_proveedor;
+    private int id_proveedor;
     private int stock;
     private String fecha_vencimiento;
-    private String id_categoria;
+    private int id_categoria;
 
     public Producto() {
     }
 
-    public Producto(String id_producto, String nombre, String descripcion, int precio_venta, String id_proveedor, int stock, String fecha_vencimiento, String id_categoria) {
+    public Producto(int id_producto, String nombre, String descripcion, int precio_venta, int id_proveedor, int stock, String fecha_vencimiento, int id_categoria) {
         this.id_producto = id_producto;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -33,11 +39,11 @@ public class Producto {
         this.id_categoria = id_categoria;
     }
 
-    public String getId_producto() {
+    public int getId_producto() {
         return id_producto;
     }
 
-    public void setId_producto(String id_producto) {
+    public void setId_producto(int id_producto) {
         this.id_producto = id_producto;
     }
 
@@ -65,11 +71,11 @@ public class Producto {
         this.precio_venta = precio_venta;
     }
 
-    public String getId_proveedor() {
+    public int getId_proveedor() {
         return id_proveedor;
     }
 
-    public void setId_proveedor(String id_proveedor) {
+    public void setId_proveedor(int id_proveedor) {
         this.id_proveedor = id_proveedor;
     }
 
@@ -89,11 +95,11 @@ public class Producto {
         this.fecha_vencimiento = fecha_vencimiento;
     }
 
-    public String getId_categoria() {
+    public int getId_categoria() {
         return id_categoria;
     }
 
-    public void setId_categoria(String id_categoria) {
+    public void setId_categoria(int id_categoria) {
         this.id_categoria = id_categoria;
     }
     
